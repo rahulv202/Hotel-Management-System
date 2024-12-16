@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="mt-5">Admin Login</h1>
     <?php if (!empty($error)) echo "<div class='alert alert-danger'>{$error}</div>"; ?>
-    <form method="POST" action="/login" class="mt-4">
+    <form method="POST" action="/admin/login" class="mt-4">
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>

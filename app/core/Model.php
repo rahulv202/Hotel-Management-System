@@ -8,20 +8,7 @@ use PDO;
 class Model
 {
     protected $table;
-    private $model_obj;
-    private static $instance_obj;
 
-    public function __construct()
-    {
-        $this->model_obj = new self();
-    }
-    public static function getInstance()
-    {
-        if (!self::$instance_obj) {
-            self::$instance_obj = new self();
-        }
-        return self::$instance_obj;
-    }
 
     public function find($key, $value)
     {
