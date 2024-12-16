@@ -5,9 +5,11 @@ namespace App\Core;
 use PDO;
 
 
-class Model
+abstract class Model
 {
     protected $table;
+
+    abstract public static function getInstance();
 
 
     public function find($key, $value)
