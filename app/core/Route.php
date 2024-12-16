@@ -12,17 +12,17 @@ class Route
     //     $pattern = "#^" . $pattern . "$#";
     //     $this->routes[] = compact('method', 'pattern', 'callback', 'middleware');
     // }
-    public function get($method = 'GET', $pattern, $callback, $middleware = [])
+    public function get($pattern, $callback, $middleware = [], $method = 'GET')
     {
         $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '([^/]+)', $pattern);
         $pattern = "#^" . $pattern . "$#";
-        $this->routes[] = compact('method', 'pattern', 'callback', 'middleware');
+        $this->routes[] = compact('pattern', 'callback', 'middleware', 'method');
     }
-    public function post($method = 'POST', $pattern, $callback, $middleware = [])
+    public function post($pattern, $callback, $middleware = [], $method = 'POST')
     {
         $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '([^/]+)', $pattern);
         $pattern = "#^" . $pattern . "$#";
-        $this->routes[] = compact('method', 'pattern', 'callback', 'middleware');
+        $this->routes[] = compact('pattern', 'callback', 'middleware', 'method');
     }
 
     public function resolve($requestUri, $requestMethod)

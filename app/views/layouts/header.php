@@ -11,5 +11,7 @@
 
 <body>
     <header>
-        <h1>Hotel Management System</h1>
+        <center>
+            <h1>Hotel Management System</h1>
+        </center>
     </header>
