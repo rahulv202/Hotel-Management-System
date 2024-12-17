@@ -8,6 +8,9 @@ session_start();
 use App\Core\Route;
 use App\Middleware\LoginCheckMiddleware;
 use App\Middleware\LogoutCheckMiddleware;
+use App\Middleware\AdminRoleCheckMiddleware;
+use App\Middleware\StaffRoleCheckMiddleware;
+use App\Middleware\GuestRoleCheckMiddleware;
 
 
 $router = new Route();
@@ -18,6 +21,11 @@ $router->get('/admin/login', 'AdminController@index_login', []);
 $router->post('/admin/register', 'AdminController@register', [LoginCheckMiddleware::class]);
 $router->post('/admin/login', 'AdminController@login', [LoginCheckMiddleware::class]);
 $router->get('/admin/logout', 'AdminController@logout', [LogoutCheckMiddleware::class]);
+$router->get('/addroom', 'RoomController@addroom', [LogoutCheckMiddleware::class, AdminRoleCheckMiddleware::class]);
+$router->post('/addroom', 'RoomController@save_addroom', [LogoutCheckMiddleware::class, AdminRoleCheckMiddleware::class]);
+$router->get('/edit-room/{param}', 'RoomController@edit_room', [LogoutCheckMiddleware::class, AdminRoleCheckMiddleware::class]);
+$router->post('/updateroom', 'RoomController@update_room', [LogoutCheckMiddleware::class, AdminRoleCheckMiddleware::class]);
+$router->get('/delete-room/{param}', 'RoomController@delete_room', [LogoutCheckMiddleware::class, AdminRoleCheckMiddleware::class]);
 // Guest user
 $router->get('/guest/register', 'GuestController@index_register', []);
 $router->get('/guest/login', 'GuestController@index_login', []);
@@ -32,6 +40,7 @@ $router->post('/staff/login', 'StaffController@login', [LoginCheckMiddleware::cl
 $router->get('/staff/logout', 'StaffController@logout', [LogoutCheckMiddleware::class]);
 
 $router->get('/dashboard', 'HomeController@dashboard', [LogoutCheckMiddleware::class]);
+$router->get('/room_list', 'RoomController@room_list', [LogoutCheckMiddleware::class]);
 try {
     // Resolve the route
     $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

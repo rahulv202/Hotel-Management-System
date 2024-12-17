@@ -10,10 +10,12 @@
     <?php if ($_SESSION['role'] == 'Staff') : ?>
         <p><strong>Sub Role:</strong> <?= htmlspecialchars($user_data[0]['role']) ?></p>
         <p><strong>Phone:</strong> <?= htmlspecialchars($user_data[0]['phone']) ?></p>
+        <p><a href="/room_list" class="btn btn-info">Room List Panel</a></p>
     <?php endif; ?>
 
     <?php if ($_SESSION['role'] == 'Admin') : ?>
-        <p><a href="/user-list" class="btn btn-info">User List Panel</a></p>
+        <p><a href="/room_list" class="btn btn-info">Room List Panel</a></p>
+        <p><a href="/addroom" class="btn btn-info">Add Room</a></p>
     <?php endif; ?>
 
     <a href="/<?php echo htmlspecialchars(strtolower($_SESSION['role'])); ?>/logout" class="btn btn-danger">Logout</a>
