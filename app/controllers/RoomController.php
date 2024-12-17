@@ -99,4 +99,45 @@ class RoomController extends Controller
             $this->view('rooms/list', ['error' => $error]);
         }
     }
+
+    public function available_room($id)
+    {
+        $room = Room::getInstance();
+        $data = [
+            'status' => 'available'
+        ];
+        if ($room->update($data, $id)) {
+            $this->redirect('/room_list');
+        } else {
+            $error = "Something went wrong";
+            $this->view('rooms/list', ['error' => $error]);
+        }
+    }
+    public function booked_room($id)
+    {
+        $room = Room::getInstance();
+        $data = [
+            'status' => 'booked'
+        ];
+        if ($room->update($data, $id)) {
+            $this->redirect('/room_list');
+        } else {
+            $error = "Something went wrong";
+            $this->view('rooms/list', ['error' => $error]);
+        }
+    }
+
+    public function maintenance_room($id)
+    {
+        $room = Room::getInstance();
+        $data = [
+            'status' => 'maintenance'
+        ];
+        if ($room->update($data, $id)) {
+            $this->redirect('/room_list');
+        } else {
+            $error = "Something went wrong";
+            $this->view('rooms/list', ['error' => $error]);
+        }
+    }
 }
