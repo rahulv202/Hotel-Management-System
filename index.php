@@ -7,6 +7,7 @@ session_start();
 
 use App\Core\Route;
 use App\Middleware\LoginCheckMiddleware;
+use App\Middleware\LogoutCheckMiddleware;
 
 
 $router = new Route();
@@ -16,17 +17,21 @@ $router->get('/admin/register', 'AdminController@index_register', []);
 $router->get('/admin/login', 'AdminController@index_login', []);
 $router->post('/admin/register', 'AdminController@register', [LoginCheckMiddleware::class]);
 $router->post('/admin/login', 'AdminController@login', [LoginCheckMiddleware::class]);
+$router->get('/admin/logout', 'AdminController@logout', [LogoutCheckMiddleware::class]);
 // Guest user
 $router->get('/guest/register', 'GuestController@index_register', []);
 $router->get('/guest/login', 'GuestController@index_login', []);
 $router->post('/guest/register', 'GuestController@register', [LoginCheckMiddleware::class]);
 $router->post('/guest/login', 'GuestController@login', [LoginCheckMiddleware::class]);
+$router->get('/guest/logout', 'GuestController@logout', [LogoutCheckMiddleware::class]);
 // Staff user
 $router->get('/staff/register', 'StaffController@index_register', []);
 $router->get('/staff/login', 'StaffController@index_login', []);
 $router->post('/staff/register', 'StaffController@register', [LoginCheckMiddleware::class]);
 $router->post('/staff/login', 'StaffController@login', [LoginCheckMiddleware::class]);
+$router->get('/staff/logout', 'StaffController@logout', [LogoutCheckMiddleware::class]);
 
+$router->get('/dashboard', 'HomeController@dashboard', [LogoutCheckMiddleware::class]);
 try {
     // Resolve the route
     $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

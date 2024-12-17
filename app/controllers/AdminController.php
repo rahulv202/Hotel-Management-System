@@ -55,4 +55,50 @@ class AdminController extends Controller
             $this->view('admin/register', ['error' => $error]);
         }
     }
+
+    public function login()
+    {
+        $email = sanitize($_POST['email']);
+        $password = sanitize($_POST['password']);
+        $email = htmlspecialchars($email);
+        $password = htmlspecialchars($password);
+        // Validate required fields
+        if (!validateRequired($email) || !validateRequired($password)) {
+            $error = "All fields are required.";
+            $this->view('admin/login', ['error' => $error]);
+            return;
+        }
+        // Check if email exists
+        $userModel = Admin::getInstance();
+        $user = $userModel->find('email', $email);
+        if (empty($user)) {
+            $error = "Email or password is incorrect.";
+            $this->view('admin/login', ['error' => $error]);
+            return;
+        }
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Set session variables
+            $_SESSION['is_login'] = true;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['username'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['role'] = "Admin"; //$user['role'];
+            // Redirect to dashboard
+            $this->redirect('/dashboard');
+        } else {
+            $error = "Email or password is incorrect.";
+            $this->view('admin/login', ['error' => $error]);
+        }
+    }
+
+    public function logout()
+    {
+        // Unset all session variables
+        session_unset();
+        // Destroy the session
+        session_destroy();
+        // Redirect to login page
+        $this->redirect('/admin/login');
+    }
 }

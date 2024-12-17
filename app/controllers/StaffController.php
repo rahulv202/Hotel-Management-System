@@ -58,4 +58,50 @@ class StaffController extends Controller
             $this->view('staff/register', ['error' => $error]);
         }
     }
+
+    public function login()
+    {
+        $email = sanitize($_POST['email']);
+        $password = sanitize($_POST['password']);
+        $email = htmlspecialchars($email);
+        $password = htmlspecialchars($password);
+        // Validate required fields
+        if (!validateRequired($email) || !validateRequired($password)) {
+            $error = "All fields are required.";
+            $this->view('staff/login', ['error' => $error]);
+            return;
+        }
+        // Check if email exists
+        $userModel = Staff::getInstance();
+        $user = $userModel->find('email', $email);
+        if (empty($user)) {
+            $error = "Email or password is incorrect.";
+            $this->view('staff/login', ['error' => $error]);
+            return;
+        }
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Set session variables
+            $_SESSION['is_login'] = true;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = (isset($user['name'])) ? $user['name'] : $user['username'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['role'] = "Staff"; //$user['role'];
+            // Redirect to dashboard
+            $this->redirect('/dashboard');
+        } else {
+            $error = "Email or password is incorrect.";
+            $this->view('staff/login', ['error' => $error]);
+        }
+    }
+
+    public function logout()
+    {
+        // Unset all session variables
+        session_unset();
+        // Destroy the session
+        session_destroy();
+        // Redirect to login page
+        $this->redirect('/staff/login');
+    }
 }

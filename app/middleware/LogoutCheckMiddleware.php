@@ -2,13 +2,15 @@
 
 namespace App\Middleware;
 
-class LoginCheckMiddleware
+class LogoutCheckMiddleware
 {
     public function handle($requestUri, $next)
     {
-        if (isset($_SESSION['is_login'])) {
+        // echo isset($_SESSION['is_login']) . "<br>";
+        // echo $_SESSION['is_login'];
+        if (!isset($_SESSION['is_login'])) {
             // Redirect to the login page
-            header('Location: /dashboard'); //guests/login
+            header('Location: /guest/login');
             exit;
         }
         // Continue to the next middleware or controller action
