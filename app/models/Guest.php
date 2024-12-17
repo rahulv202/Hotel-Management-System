@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Core\Model;
 
-class Reservation extends Model
+class Guest extends Model
 {
-    protected $table = 'guest';
+    protected $table = 'guests';
     private static $instance_obj;
     public static function getInstance()
     {

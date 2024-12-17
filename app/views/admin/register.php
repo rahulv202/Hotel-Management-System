@@ -11,14 +11,10 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
         </div>
         <div class="form-group">
-            <label for="role">Role</label>
-            <input type="text" class="form-control" id="role" name="role" placeholder="Role" required>
-        </div>
-        <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
-        <p class="mt-3"><a href="/login">Login</a></p>
+        <p class="mt-3"><a href="/admin/login">Login</a></p>
     </form>
 </div>

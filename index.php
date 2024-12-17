@@ -11,10 +11,21 @@ use App\Middleware\LoginCheckMiddleware;
 
 $router = new Route();
 // Define your routes here
+//Admin User
 $router->get('/admin/register', 'AdminController@index_register', []);
 $router->get('/admin/login', 'AdminController@index_login', []);
 $router->post('/admin/register', 'AdminController@register', [LoginCheckMiddleware::class]);
 $router->post('/admin/login', 'AdminController@login', [LoginCheckMiddleware::class]);
+// Guest user
+$router->get('/guest/register', 'GuestController@index_register', []);
+$router->get('/guest/login', 'GuestController@index_login', []);
+$router->post('/guest/register', 'GuestController@register', [LoginCheckMiddleware::class]);
+$router->post('/guest/login', 'GuestController@login', [LoginCheckMiddleware::class]);
+// Staff user
+$router->get('/staff/register', 'StaffController@index_register', []);
+$router->get('/staff/login', 'StaffController@index_login', []);
+$router->post('/staff/register', 'StaffController@register', [LoginCheckMiddleware::class]);
+$router->post('/staff/login', 'StaffController@login', [LoginCheckMiddleware::class]);
 
 try {
     // Resolve the route

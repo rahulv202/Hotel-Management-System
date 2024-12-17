@@ -11,6 +11,6 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
-        <p class="mt-3"><a href="/register">Register</a></p>
+        <p class="mt-3"><a href="/admin/register">Register</a></p>
     </form>
 </div>
