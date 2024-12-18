@@ -32,6 +32,10 @@ $router->get('/guest/login', 'GuestController@index_login', []);
 $router->post('/guest/register', 'GuestController@register', [LoginCheckMiddleware::class]);
 $router->post('/guest/login', 'GuestController@login', [LoginCheckMiddleware::class]);
 $router->get('/guest/logout', 'GuestController@logout', [LogoutCheckMiddleware::class]);
+$router->get('/guest-booked-room/{param}', 'RoomController@guest_booked_room', [LogoutCheckMiddleware::class, GuestRoleCheckMiddleware::class]);
+$router->get('/manage-room-list', 'RoomController@manage_room_list', [LogoutCheckMiddleware::class, GuestRoleCheckMiddleware::class]);
+$router->get('/check-in-room/{reservation_id}/{room_price}', 'RoomController@check_in_room', [LogoutCheckMiddleware::class, GuestRoleCheckMiddleware::class]);
+$router->get('/check-out-room/{reservation_id}/{room_price}/{room_id}', 'RoomController@check_out_room', [LogoutCheckMiddleware::class, GuestRoleCheckMiddleware::class]);
 // Staff user
 $router->get('/staff/register', 'StaffController@index_register', []);
 $router->get('/staff/login', 'StaffController@index_login', []);

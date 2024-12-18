@@ -31,6 +31,9 @@
                             <a href="/booked-room/<?= $room['id'] ?>" class="btn btn-danger btn-sm">Room booked</a>
                             <a href="/maintenance-room/<?= $room['id'] ?>" class="btn btn-warning btn-sm">Room maintenance</a>
                         <?php endif; ?>
+                        <?php if ($_SESSION['role'] == 'Guest') : ?>
+                            <a href="/guest-booked-room/<?= $room['id'] ?>" class="btn btn-danger btn-sm">Room booked</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
