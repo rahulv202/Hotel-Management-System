@@ -11,6 +11,7 @@ use App\Middleware\LogoutCheckMiddleware;
 use App\Middleware\AdminRoleCheckMiddleware;
 use App\Middleware\StaffRoleCheckMiddleware;
 use App\Middleware\GuestRoleCheckMiddleware;
+use App\Middleware\APIMiddleware;
 
 
 $router = new Route();
@@ -49,6 +50,15 @@ $router->get('/maintenance-room/{param}', 'RoomController@maintenance_room', [Lo
 
 $router->get('/dashboard', 'HomeController@dashboard', [LogoutCheckMiddleware::class]);
 $router->get('/room_list', 'RoomController@room_list', [LogoutCheckMiddleware::class]);
+
+// API routes Endpoints
+$router->post('/api/api_key', 'APIController@api_key', []);
+$router->post('/api/add_room', 'APIController@add_room', [APIMiddleware::class]);
+$router->post('/api/update_room/{param}', 'APIController@update_room', [APIMiddleware::class]);
+$router->get('/api/delete_room/{param}', 'APIController@delete_room', [APIMiddleware::class]);
+$router->get('/api/list_room', 'APIController@list_room', [APIMiddleware::class]);
+$router->post('/api/api_key_delete', 'APIController@api_key_delete', [APIMiddleware::class]);
+
 try {
     // Resolve the route
     $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
