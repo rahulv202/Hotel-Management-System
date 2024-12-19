@@ -93,8 +93,8 @@ HotelManagementSystem/
 ### **2. Clone the Repository**
 
 ```bash
-git clone https://github.com/your-username/HotelManagementSystem.git
-cd HotelManagementSystem
+git clone https://github.com/rahulv202/Hotel-Management-System
+cd Hotel-Management-System
 ```
 
 ### **3. Install Dependencies**
